@@ -4,7 +4,7 @@ PROJECT=discord-app
 
 function usage() {
   echo "Usage:"
-  echo "$0 [-b (builds image) | -r (runs docker)]"
+  echo "$0 [-b (builds image) | -r (runs docker) | -i (run docker interactive)]"
 }
 
 function build_docker () {
@@ -27,12 +27,23 @@ function run_docker () {
     "/dev_data/discord/start_bot.sh"
 }
 
-while getopts ':hrb' option; do
+function run_docker_interactive () {
+    docker run \
+    -ti \
+    -v $HOME/.aws:/root/.aws \
+    -v $(pwd):/dev_data/discord \
+    "$PROJECT":latest \
+    "/bin/bash"
+}
+
+while getopts ':hrbi' option; do
   case "$option" in
     h) usage
        exit
        ;;
     r) run_docker
+       ;;
+    i) run_docker_interactive
        ;;
     b) build_docker
        ;;

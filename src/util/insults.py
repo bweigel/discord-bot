@@ -1,5 +1,4 @@
 import urllib.request
-from typing import Dict, Tuple, List
 
 from lxml import html, cssselect
 
@@ -20,13 +19,17 @@ def get_xpath_tree(data: [str, bytes]) -> html.HtmlElement:
     return html.fromstring(data)
 
 
-selectors = Dict[Tuple[str, str], List[str]]
-
-
-def get_selector(tree: html.HtmlElement, selector: str) -> selectors:
+def get_selector(tree: html.HtmlElement, selector: str) -> [str]:
     sel = cssselect.CSSSelector(selector)
     output = [e.text for e in sel(tree)]
     return output
+
+
+def read_insults():
+    with open("util/insults.txt", 'r') as fi:
+        _insults = fi.read()
+    return _insults.split("\n")
+
 
 if __name__ == "__main__":
     for i in range(1, 19):

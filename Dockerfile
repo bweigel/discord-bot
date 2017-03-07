@@ -1,7 +1,8 @@
 FROM python:3.6.0-alpine
 
 RUN apk update
-RUN apk add bash
+RUN apk add bash gcc libxml2-dev libxslt-dev linux-headers musl-dev
+
 
 RUN mkdir /dev_data/
 COPY requirements.txt /dev_data/requirements.txt
