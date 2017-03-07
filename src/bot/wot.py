@@ -29,6 +29,3 @@ def get_user_all_stats_by_id(account_id, **kwargs):
         .get('{0}'.format(account_id)) \
         .get('statistics').get('all')
 
-
-id = get_user_id_by_name('Duselmanus')
-print(get_user_all_stats_by_id(id))
